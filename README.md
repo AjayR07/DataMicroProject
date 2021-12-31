@@ -3,7 +3,7 @@ Presidio Data Training Micro Project ~ Sales Analytics
 
 ### Collaborators
 
-1. Lokeshvar S
+1. Lokeshvar S - cloned
 2. Yashwanth K
 3. Pranesh P
 4. Prem S R
