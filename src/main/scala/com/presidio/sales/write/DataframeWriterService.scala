@@ -1,6 +1,6 @@
 package com.presidio.sales.write
 
-import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.{DataFrame, SaveMode}
 
 abstract class DataframeWriterService {
   def write(dataFrame : DataFrame,outputPath : String) : Unit
@@ -8,6 +8,6 @@ abstract class DataframeWriterService {
 
 class ParquetWriterService extends  DataframeWriterService {
   override def write(dataFrame: DataFrame, outputPath: String): Unit = {
-    dataFrame.write.parquet(outputPath)
+    dataFrame.write.mode(SaveMode.Overwrite).parquet(outputPath)
   }
 }

@@ -1,7 +1,8 @@
 package com.presidio
 
-import com.presidio.sales.SalesManagerImpl
+import com.presidio.sales.compute.SalesManagerImpl
 import com.presidio.sales.read.CSVReaderService
+import com.presidio.sales.write.ParquetWriterService
 import com.presidio.util.SparkSQLUtility
 
 object SalesEngine {
@@ -10,6 +11,13 @@ object SalesEngine {
     val sparkSession = new SparkSQLUtility().getSession
     val csvReaderService = new CSVReaderService
     val salesDF = csvReaderService.readAsDataFrame(sparkSession, "assets/sales.csv")
-    salesDF.show()
+    val salesManagerImpl = new SalesManagerImpl
+    val productTypes = salesManagerImpl.listProductTypes(salesDF, "Golf Equipment").toDF()
+    val parquetWriter = new ParquetWriterService
+    productTypes.show()
+    println(productTypes.count())
+    parquetWriter.write(productTypes.withColumnRenamed("Product Type", "ProductType"),
+      "assets/output/productTypes")
+
   }
 }
