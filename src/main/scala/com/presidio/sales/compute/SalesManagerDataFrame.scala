@@ -2,7 +2,7 @@ package com.presidio.sales.compute
 
 import org.apache.spark.sql.{DataFrame, Dataset, Row}
 
-trait SalesManager {
+trait SalesManagerDataFrame {
 
   def listProductTypes(dataFrame: DataFrame, productLine: String): Dataset[Row]
 
