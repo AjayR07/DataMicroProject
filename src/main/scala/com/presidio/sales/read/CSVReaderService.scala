@@ -9,7 +9,8 @@ abstract class CSVReaderService {
 class DataFrameReaderService extends CSVReaderService {
   def read(path: String): Any = {
     val sparkSession = new SparkSQLUtility().getSession
-    sparkSession.read.format("csv").option("header", "true").load(path)
+    val df = sparkSession.read.format("csv").option("header", "true").load(path)
+    df
   }
 }
 
