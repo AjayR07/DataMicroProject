@@ -1,21 +1,16 @@
 package com.presidio.sales.read
 
 import com.presidio.util.SparkSQLUtility
+import org.apache.spark.rdd.RDD
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
-abstract class CSVReaderService {
-  def read(path: String): Any
-}
-
-class DataFrameReaderService extends CSVReaderService {
-  def read(path: String): Any = {
-    val sparkSession = new SparkSQLUtility().getSession
+class CSVReaderService extends CSVReader {
+  override def readAsDataFrame(sparkSession: SparkSession, path: String): DataFrame = {
     val df = sparkSession.read.format("csv").option("header", "true").load(path)
     df
   }
-}
 
-class RDDReaderService extends CSVReaderService {
-  def read(path: String): Any = {
+  override def readAsRDD(sparkSession: SparkSession, path: String): RDD[Array[String]] = {
     val sparkContext = new SparkSQLUtility().getSession.sparkContext
     val textFileRDD = sparkContext.textFile(path)
     val mappedRDD = textFileRDD.map(each => each.split(","))

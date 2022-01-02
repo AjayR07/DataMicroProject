@@ -4,12 +4,12 @@ import org.apache.spark.sql.SparkSession
 
 
 class SparkSQLUtility {
-  def getSession: SparkSession ={
+  def getSession: SparkSession = {
 
-    val sparkSession= SparkSession.builder()
+    val sparkSession = SparkSession.builder()
       .appName("CodaDataJOB")
       .master("local[*]")
-//      .master("spark://ajay:7077")
+      //      .master("spark://ajay:7077")
       .getOrCreate()
 
     sparkSession
