@@ -13,7 +13,9 @@ class SalesManagerRDDImpl extends SalesManagerRDD {
     val totalAcc = sparkContext.doubleAccumulator("TotalRevenue")
 
     val filteredRDD = data.filter(_(5).equals(state))
-    filteredRDD.foreach( totalAcc.add(_(6)))
+                          .filter(_(6).nonEmpty)
+     filteredRDD.foreach(each => totalAcc.add(each(6).toDouble))
+
      totalAcc.value
   }
 

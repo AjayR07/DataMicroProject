@@ -14,7 +14,7 @@ class CSVReaderService extends CSVReader {
     val sparkContext = new SparkSQLUtility().getSession.sparkContext
     val textFileRDD = sparkContext.textFile(path)
     //TODO: Splitting empty columns results in missing values in resultant array
-    val mappedRDD = textFileRDD.map(each => each.split(","))
+    val mappedRDD = textFileRDD.map(_.split(",",-1))
     mappedRDD
   }
 }
