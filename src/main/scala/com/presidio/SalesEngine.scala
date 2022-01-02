@@ -19,9 +19,11 @@ object SalesEngine {
 //    println(productTypes.count())
 //    parquetWriter.write(productTypes.withColumnRenamed("Product Type", "ProductType"),
 //      "assets/output/productTypes")
-    val productTypes = salesManagerImpl.listProductTypes(salesRDD, "Golf Equipment")
+//    val productTypes = salesManagerImpl.listProductTypes(salesRDD, "Golf Equipment")
 //    println ( salesManagerImpl.computeRevenue(salesDF, "France") )
-    productTypes.foreach(println)
+//    productTypes.foreach(println)
+      salesRDD.foreach(each=>each.foreach(println))
+//    salesManagerImpl.computeRevenue(sparkSession.sparkContext,salesRDD,"France")
 
   }
 }
